@@ -3,13 +3,16 @@ import numpy as np
 import networkx as nx
 import matplotlib.pyplot as plt
 from OrdenCab import OrdenCab
-from ListaT import ListaT
 
+class Lista:
+    def _init_(self, x, y):
+        self.x = x
+        self.y = y
 
 CC = np.zeros((5, 5))
 for x in range(5):
     for y in range(5):
-        CC[x, y] = random.randint(0,1000)
+        CC[x, y] = random.randint(0,100)
 print("Grupos De Caballos :")
 for x in range(5):
   print("Grupo ", x + 1, ":", CC[x])
@@ -40,7 +43,7 @@ print ("2° Caballo: ", int(R7[4]), "m/s")
 ConcatenatedArray = np.concatenate(R6)
 ConcatenatedArray.sort()
 
-OrdenCab = OrdenCab(int(R6[0, 0]), "Caballo 1")
+OrdenCab = OrdenCab(int(R6[0, 0]), "C 1")
 OrdenCab.Add(int(R6[0, 1]), "C 2")
 OrdenCab.Add(int(R6[0, 2]), "C 3")
 OrdenCab.Add(int(R6[0, 3]), "C 4")
@@ -66,122 +69,117 @@ OrdenCab.Add(int(R6[4, 2]), "C 23")
 OrdenCab.Add(int(R6[4, 3]), "C 24")
 OrdenCab.Add(int(R6[4, 4]), "C 25")
 
-"""x = 1
-for x in range(5):
-    for y in range(5):
-        if R6[x, y] != R6[0, 0]:
-            HorseTree.Add(int(R6[x, y]), "Horse " + string(x))
-            x += 1
-"""
+
 OrdenCab.OrderedPrint()
 
 Cabs = ["" for x in range(25)]
 for x in range(25):
-  Data = HorseTree.Search(ConcatenatedArray[x]) 
-  Horses[x] = Data.Name
+  Data = OrdenCab.Busca(ConcatenatedArray[x]) 
+  Cabs[x] = Data.Nom
 
-Graph = nx.Graph()
+G = nx.Graph()
 
-Vertex = [Cabs[24], Cabs[23], Cabs[22], Cabs[21], Cabs[20], Cabs[19], Cabs[18], 
-              Cabs[17], Cabs[16], [15], Cabs[14], Cabs[13], Cabs[12], Cabs[11], 
+Vert = [Cabs[24], Cabs[23], Cabs[22], Cabs[21], Cabs[20], Cabs[19], Cabs[18], 
+              Cabs[17], Cabs[16], Cabs[15], Cabs[14], Cabs[13], Cabs[12], Cabs[11], 
               Cabs[10], Cabs[9], Cabs[8], Cabs[7], Cabs[6], Cabs[5], Cabs[4],
               Cabs[3], Cabs[2], Cabs[1], Cabs[0]]
-Graph.add_nodes_from(Vertex)
+G.add_nodes_from(Vert)
 
-Arista = [(Cabs[24], Cabs[23]), ([23], Cabs[22]), (Cabs[22], Cabs[21]), (Cabs[21], Cabs[20]),
+Arista = [(Cabs[24], Cabs[23]), (Cabs[23], Cabs[22]), (Cabs[22], Cabs[21]), (Cabs[21], Cabs[20]),
              (Cabs[20], Cabs[19]), (Cabs[19], Cabs[18]), (Cabs[18], Cabs[17]), (Cabs[17], Cabs[16]),
              (Cabs[16], Cabs[15]), (Cabs[15], Cabs[14]), (Cabs[14], Cabs[13]), (Cabs[13], Cabs[12]),
              (Cabs[12], Cabs[11]), (Cabs[11], Cabs[10]), (Cabs[10], Cabs[9]), (Cabs[9], Cabs[8]), 
              (Cabs[8], Cabs[7]), (Cabs[7], Cabs[6]), (Cabs[6], Cabs[5]), (Cabs[5], Cabs[4]),
              (Cabs[4], Cabs[3]), (Cabs[3], Cabs[2]), (Cabs[2], Cabs[1]), (Cabs[1], Cabs[0])]
-Graph.add_edges_from(Arista)
+G.add_edges_from(Arista)
 
-Position = {Horses[24]: (1, 26), Horses[23]: (2, 25), Horses[22]: (3, 24), Horses[21]: (4, 23), Horses[20]: (5, 22),
-         Horses[19]: (6, 21), Horses[18]: (7, 20), Horses[17]: (8, 19), Horses[16]: (9, 18), Horses[15]: (10, 17), 
-         Horses[14]: (11, 16), Horses[13]: (12, 15), Horses[12]: (13, 14), Horses[11]: (14, 13), Horses[10]: (15, 12),
-         Horses[9]: (16, 11), Horses[8]: (17, 10), Horses[7]: (18, 9), Horses[6]: (19, 8), Horses[5]: (20, 7),
-         Horses[4]: (21, 6), Horses[3]: (22, 5), Horses[2]: (23, 4), Horses[1]: (24, 3), Horses[0]: (25, 2)}
-P1 = Tuple()
-P1.x = Position[Horses[24]][0]
-P1.y = Position[Horses[24]][1]
-P2 = Tuple()
-P2.x = Position[Horses[23]][0]
-P2.y = Position[Horses[23]][1]
-P3 = Tuple()
-P3.x = Position[Horses[22]][0]
-P3.y = Position[Horses[22]][1]
-P4 = Tuple()
-P4.x = Position[Horses[21]][0]
-P4.y = Position[Horses[21]][1]
-P5 = Tuple()
-P5.x = Position[Horses[20]][0]
-P5.y = Position[Horses[20]][1]
-P6 = Tuple()
-P6.x = Position[Horses[19]][0]
-P6.y = Position[Horses[19]][1]
-P7 = Tuple()
-P7.x = Position[Horses[18]][0]
-P7.y = Position[Horses[18]][1]
-P8 = Tuple()
-P8.x = Position[Horses[17]][0]
-P8.y = Position[Horses[17]][1]
-P9 = Tuple()
-P9.x = Position[Horses[16]][0]
-P9.y = Position[Horses[16]][1]
-P10 = Tuple()
-P10.x = Position[Horses[15]][0]
-P10.y = Position[Horses[15]][1]
-P11 = Tuple()
-P11.x = Position[Horses[14]][0]
-P11.y = Position[Horses[14]][1]
-P12 = Tuple()
-P12.x = Position[Horses[13]][0]
-P12.y = Position[Horses[13]][1]
-P13 = Tuple()
-P13.x = Position[Horses[12]][0]
-P13.y = Position[Horses[12]][1]
-P14 = Tuple()
-P14.x = Position[Horses[11]][0]
-P14.y = Position[Horses[11]][1]
-P15 = Tuple()
-P15.x = Position[Horses[10]][0]
-P15.y = Position[Horses[10]][1]
-P16 = Tuple()
-P16.x = Position[Horses[9]][0]
-P16.y = Position[Horses[9]][1]
-P17 = Tuple()
-P17.x = Position[Horses[8]][0]
-P17.y = Position[Horses[8]][1]
-P18 = Tuple()
-P18.x = Position[Horses[7]][0]
-P18.y = Position[Horses[7]][1]
-P19 = Tuple()
-P19.x = Position[Horses[6]][0]
-P19.y = Position[Horses[6]][1]
-P20 = Tuple()
-P20.x = Position[Horses[5]][0]
-P20.y = Position[Horses[5]][1]
-P21 = Tuple()
-P21.x = Position[Horses[4]][0]
-P21.y = Position[Horses[4]][1]
-P22 = Tuple()
-P22.x = Position[Horses[3]][0]
-P22.y = Position[Horses[3]][1]
-P23 = Tuple()
-P23.x = Position[Horses[2]][0]
-P23.y = Position[Horses[2]][1]
-P24 = Tuple()
-P24.x = Position[Horses[1]][0]
-P24.y = Position[Horses[1]][1]
-P25 = Tuple()
-P25.x = Position[Horses[0]][0]
-P25.y = Position[Horses[0]][1]
+Position = {Cabs[24]: (1, 26), Cabs[23]: (2, 25), Cabs[22]: (3, 24), Cabs[21]: (4, 23), Cabs[20]: (5, 22),
+         Cabs[19]: (6, 21), Cabs[18]: (7, 20), Cabs[17]: (8, 19), Cabs[16]: (9, 18), Cabs[15]: (10, 17), 
+         Cabs[14]: (11, 16), Cabs[13]: (12, 15), Cabs[12]: (13, 14), Cabs[11]: (14, 13), Cabs[10]: (15, 12),
+         Cabs[9]: (16, 11), Cabs[8]: (17, 10), Cabs[7]: (18, 9), Cabs[6]: (19, 8), Cabs[5]: (20, 7),
+         Cabs[4]: (21, 6), Cabs[3]: (22, 5), Cabs[2]: (23, 4), Cabs[1]: (24, 3), Cabs[0]: (25, 2)}
 
-Nodes = {Horses[24]: P1, Horses[23]: P2, Horses[22]: P3, Horses[21]: P4, Horses[20]: P5, 
-          Horses[19]: P6, Horses[18]: P7, Horses[17]: P8, Horses[16]: P9, Horses[15]: P10, 
-          Horses[14]: P11, Horses[13]: P12, Horses[12]: P13, Horses[11]: P14, Horses[10]: P15, 
-          Horses[9]: P16, Horses[8]: P17, Horses[7]: P18, Horses[6]: P19, Horses[5]: P20, 
-          Horses[4]: P21, Horses[3]: P22, Horses[2]: P23, Horses[1]: P24, Horses[0]: P25}
+P1 = Lista()
+P1.x = Position[Cabs[24]][0]
+P1.y = Position[Cabs[24]][1]
+P2 = Lista()
+P2.x = Position[Cabs[23]][0]
+P2.y = Position[Cabs[23]][1]
+P3 = Lista()
+P3.x = Position[Cabs[22]][0]
+P3.y = Position[Cabs[22]][1]
+P4 = Lista()
+P4.x = Position[Cabs[21]][0]
+P4.y = Position[Cabs[21]][1]
+P5 = Lista()
+P5.x = Position[Cabs[20]][0]
+P5.y = Position[Cabs[20]][1]
+P6 = Lista()
+P6.x = Position[Cabs[19]][0]
+P6.y = Position[Cabs[19]][1]
+P7 = Lista()
+P7.x = Position[Cabs[18]][0]
+P7.y = Position[Cabs[18]][1]
+P8 = Lista()
+P8.x = Position[Cabs[17]][0]
+P8.y = Position[Cabs[17]][1]
+P9 = Lista()
+P9.x = Position[Cabs[16]][0]
+P9.y = Position[Cabs[16]][1]
+P10 = Lista()
+P10.x = Position[Cabs[15]][0]
+P10.y = Position[Cabs[15]][1]
+P11 = Lista()
+P11.x = Position[Cabs[14]][0]
+P11.y = Position[Cabs[14]][1]
+P12 = Lista()
+P12.x = Position[Cabs[13]][0]
+P12.y = Position[Cabs[13]][1]
+P13 = Lista()
+P13.x = Position[Cabs[12]][0]
+P13.y = Position[Cabs[12]][1]
+P14 = Lista()
+P14.x = Position[Cabs[11]][0]
+P14.y = Position[Cabs[11]][1]
+P15 = Lista()
+P15.x = Position[Cabs[10]][0]
+P15.y = Position[Cabs[10]][1]
+P16 = Lista()
+P16.x = Position[Cabs[9]][0]
+P16.y = Position[Cabs[9]][1]
+P17 = Lista()
+P17.x = Position[Cabs[8]][0]
+P17.y = Position[Cabs[8]][1]
+P18 = Lista()
+P18.x = Position[Cabs[7]][0]
+P18.y = Position[Cabs[7]][1]
+P19 = Lista()
+P19.x = Position[Cabs[6]][0]
+P19.y = Position[Cabs[6]][1]
+P20 = Lista()
+P20.x = Position[Cabs[5]][0]
+P20.y = Position[Cabs[5]][1]
+P21 = Lista()
+P21.x = Position[Cabs[4]][0]
+P21.y = Position[Cabs[4]][1]
+P22 = Lista()
+P22.x = Position[Cabs[3]][0]
+P22.y = Position[Cabs[3]][1]
+P23 = Lista()
+P23.x = Position[Cabs[2]][0]
+P23.y = Position[Cabs[2]][1]
+P24 = Lista()
+P24.x = Position[Cabs[1]][0]
+P24.y = Position[Cabs[1]][1]
+P25 = Lista()
+P25.x = Position[Cabs[0]][0]
+P25.y = Position[Cabs[0]][1]
+
+Nodes = {Cabs[24]: P1, Cabs[23]: P2, Cabs[22]: P3, Cabs[21]: P4, Cabs[20]: P5, 
+          Cabs[19]: P6, Cabs[18]: P7, Cabs[17]: P8, Cabs[16]: P9, Cabs[15]: P10, 
+          Cabs[14]: P11, Cabs[13]: P12, Cabs[12]: P13, Cabs[11]: P14, Cabs[10]: P15, 
+          Cabs[9]: P16, Cabs[8]: P17, Cabs[7]: P18, Cabs[6]: P19, Cabs[5]: P20, 
+          Cabs[4]: P21,Cabs[3]: P22, Cabs[2]: P23, Cabs[1]: P24, Cabs[0]: P25}
           
-nx.draw(Graph, pos = Position, node_color = 'blue', with_labels = True)
+nx.draw(G, pos = Position, node_color = 'green', with_labels = True)
 plt.show()
