@@ -19,7 +19,7 @@ class OrdenCab:
     def __OrderRecursive(self, Node):
         if Node is not None:
             self.__OrderRecursive(Node.Next)
-            print(Node.Nom, ": ", Node.Vel, "pts")
+            print(Node.Nom, ": ", Node.Vel, "m/s")
             self.__OrderRecursive(Node.Back)
     
     def __Busca(self, node, Vel):
@@ -30,7 +30,7 @@ class OrdenCab:
         if Vel < node.Vel:
             return self.__Busca(node.Back, Vel)
         else:
-            return self.__Busca(node.Next, )
+            return self.__Busca(node.Next, Vel)
 
     def Add(self, Vel, Nom):
         self.__RecursiveAddition(self.root, Vel, Nom)
